@@ -26,6 +26,9 @@
    </item>
    <item row="0" column="1" colspan="4">
     <widget class="QLineEdit" name="PathDisplay">
+     <property name="text">
+      <string>PLACEHOLDER</string>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
@@ -49,7 +52,28 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QComboBox" name="SMUAddress"/>
+    <widget class="QComboBox" name="SMUAddress">
+     <item>
+      <property name="text">
+       <string>GPIB0::24</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GPIB1::24</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GPIB0:23</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GPIB1:23</string>
+      </property>
+     </item>
+    </widget>
    </item>
    <item row="1" column="2">
     <spacer name="horizontalSpacer">
@@ -88,7 +112,18 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QComboBox" name="SourceMode"/>
+    <widget class="QComboBox" name="SourceMode">
+     <item>
+      <property name="text">
+       <string>Current</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Voltage</string>
+      </property>
+     </item>
+    </widget>
    </item>
    <item row="2" column="2">
     <spacer name="horizontalSpacer_2">
@@ -138,7 +173,18 @@ Level</string>
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QComboBox" name="FrontOrBack"/>
+    <widget class="QComboBox" name="FrontOrBack">
+     <item>
+      <property name="text">
+       <string>Front</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </item>
+    </widget>
    </item>
    <item row="3" column="2">
     <spacer name="horizontalSpacer_3">
@@ -189,7 +235,18 @@ Four Terminal</string>
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QComboBox" name="TwoOrFour"/>
+    <widget class="QComboBox" name="TwoOrFour">
+     <item>
+      <property name="text">
+       <string>Two Terminal</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Four Terminal</string>
+      </property>
+     </item>
+    </widget>
    </item>
    <item row="4" column="2">
     <spacer name="horizontalSpacer_4">

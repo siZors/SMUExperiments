@@ -39,7 +39,8 @@ class SourceMeter(object):
                       'ComplianceLevel': 200,
                       'NPLC': 1, 'TerminalLocation': 'FRON',
                       'FourTerminal': 'OFF', 'TriggerCount': 1,
-                      'TriggerDelay': 0, 'SourceDelay': 0}
+                      'TriggerDelay': 0, 'SourceDelay': 0,
+                      'ExperimentLength': 2, 'PointDelay': 0.1}
 
     def __init__(self, smu_address='GPIB0::25'):
         """Initialize the object.
@@ -366,7 +367,7 @@ class SMUExperiments(SourceMeter):
         SourceMeter.source_on(self, 'OFF')
         return data
 
-    def slow_chrono(self, SweepPath, ExperimentLength=10, PointDelay=0.5,
+    def slow_chrono(self, SweepPath, ExperimentLength=None, PointDelay=None,
                     RecordData='No'):
         """Perform a (slow) chrono measurement.
 
@@ -394,6 +395,12 @@ class SMUExperiments(SourceMeter):
         currently is set to 1,000,000 points, but can be changed to
         any value if needed.)
         """
+
+        if ExperimentLength:
+            self.KWARGS['ExperimentLength'] = ExperimentLength
+        if PointDelay:
+            self.KWARGS['PointDelay'] = PointDelay
+
         # Make sure the trigger count is one.
         self.KWARGS['TriggerCount'] = 1
         SourceMeter.setup_simple_experiment(self)
@@ -406,7 +413,7 @@ class SMUExperiments(SourceMeter):
             count = -1
             StartTime = time.time()
             SourceMeter.set_output(self, setPoint)
-            while time.time() - StartTime < ExperimentLength:
+            while time.time() - StartTime < self.KWARGS['ExperimentLength']:
                 count += 1
                 # Time block
                 now = time.time()
@@ -417,7 +424,7 @@ class SMUExperiments(SourceMeter):
                                            currGlobalTime)
 
                 DataBin[count, 2] = currTime
-                time.sleep(PointDelay)
+                time.sleep(self.KWARGS['PointDelay'])
             # Remove zeros from array
             count += 1
             DataBin = DataBin[0:count, :]

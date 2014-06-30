@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Harrison\Box Sync\penn_state\hickner\computer\python\keithleyUI\RunConfiguration.ui'
 #
-# Created: Tue Jun 24 20:08:24 2014
+# Created: Wed Jun 25 22:17:41 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -44,6 +44,10 @@ class Ui_RunConfigurationDlg(object):
         self.gridLayout.addWidget(self.SMUAddressLbl, 1, 0, 1, 1)
         self.SMUAddress = QtGui.QComboBox(RunConfigurationDlg)
         self.SMUAddress.setObjectName(_fromUtf8("SMUAddress"))
+        self.SMUAddress.addItem(_fromUtf8(""))
+        self.SMUAddress.addItem(_fromUtf8(""))
+        self.SMUAddress.addItem(_fromUtf8(""))
+        self.SMUAddress.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.SMUAddress, 1, 1, 1, 1)
         spacerItem = QtGui.QSpacerItem(462, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 2, 1, 1)
@@ -55,6 +59,8 @@ class Ui_RunConfigurationDlg(object):
         self.gridLayout.addWidget(self.SourceModeLbl, 2, 0, 1, 1)
         self.SourceMode = QtGui.QComboBox(RunConfigurationDlg)
         self.SourceMode.setObjectName(_fromUtf8("SourceMode"))
+        self.SourceMode.addItem(_fromUtf8(""))
+        self.SourceMode.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.SourceMode, 2, 1, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(183, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 2, 2, 1, 1)
@@ -71,6 +77,8 @@ class Ui_RunConfigurationDlg(object):
         self.gridLayout.addWidget(self.FrontOrBackLbl, 3, 0, 1, 1)
         self.FrontOrBack = QtGui.QComboBox(RunConfigurationDlg)
         self.FrontOrBack.setObjectName(_fromUtf8("FrontOrBack"))
+        self.FrontOrBack.addItem(_fromUtf8(""))
+        self.FrontOrBack.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.FrontOrBack, 3, 1, 1, 1)
         spacerItem2 = QtGui.QSpacerItem(183, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem2, 3, 2, 1, 1)
@@ -87,6 +95,8 @@ class Ui_RunConfigurationDlg(object):
         self.gridLayout.addWidget(self.TwoOrFourLbl, 4, 0, 1, 1)
         self.TwoOrFour = QtGui.QComboBox(RunConfigurationDlg)
         self.TwoOrFour.setObjectName(_fromUtf8("TwoOrFour"))
+        self.TwoOrFour.addItem(_fromUtf8(""))
+        self.TwoOrFour.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.TwoOrFour, 4, 1, 1, 1)
         spacerItem3 = QtGui.QSpacerItem(183, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem3, 4, 2, 1, 1)
@@ -129,17 +139,28 @@ class Ui_RunConfigurationDlg(object):
     def retranslateUi(self, RunConfigurationDlg):
         RunConfigurationDlg.setWindowTitle(_translate("RunConfigurationDlg", "Dialog", None))
         self.PathLbl.setText(_translate("RunConfigurationDlg", "Data Path", None))
+        self.PathDisplay.setText(_translate("RunConfigurationDlg", "PLACEHOLDER", None))
         self.BrowseButton.setText(_translate("RunConfigurationDlg", "&Browse", None))
         self.SMUAddressLbl.setText(_translate("RunConfigurationDlg", "&SMU Address", None))
+        self.SMUAddress.setItemText(0, _translate("RunConfigurationDlg", "GPIB0::24", None))
+        self.SMUAddress.setItemText(1, _translate("RunConfigurationDlg", "GPIB1::24", None))
+        self.SMUAddress.setItemText(2, _translate("RunConfigurationDlg", "GPIB0:23", None))
+        self.SMUAddress.setItemText(3, _translate("RunConfigurationDlg", "GPIB1:23", None))
         self.NPLCLbl.setText(_translate("RunConfigurationDlg", "&NPLC", None))
         self.SourceModeLbl.setText(_translate("RunConfigurationDlg", "Sou&rce Mode", None))
+        self.SourceMode.setItemText(0, _translate("RunConfigurationDlg", "Current", None))
+        self.SourceMode.setItemText(1, _translate("RunConfigurationDlg", "Voltage", None))
         self.ComplianceLbl.setText(_translate("RunConfigurationDlg", "&Compliance\n"
 "Level", None))
         self.FrontOrBackLbl.setText(_translate("RunConfigurationDlg", "Front or Back", None))
+        self.FrontOrBack.setItemText(0, _translate("RunConfigurationDlg", "Front", None))
+        self.FrontOrBack.setItemText(1, _translate("RunConfigurationDlg", "Back", None))
         self.MDelayLbl.setText(_translate("RunConfigurationDlg", "Measurement\n"
 "De&lay", None))
         self.TwoOrFourLbl.setText(_translate("RunConfigurationDlg", "Two or\n"
 "Four Terminal", None))
+        self.TwoOrFour.setItemText(0, _translate("RunConfigurationDlg", "Two Terminal", None))
+        self.TwoOrFour.setItemText(1, _translate("RunConfigurationDlg", "Four Terminal", None))
         self.SMDelayLbl.setText(_translate("RunConfigurationDlg", "Source Measure\n"
 "&Delay", None))
 

@@ -9,22 +9,6 @@ import time
 import os
 
 
-def load_args():
-    RunArgs = {
-        'Membrane': 'MembraneName', 'MembraneID': '2000',
-        'Salt': 'Salt', 'HighConcentration': 0.5,
-        'HighConductivity': 0.0, 'LowConcentration': 0.1,
-        'LowConductivity': 0.0, 'RunNumber': 1,
-        'SourceMode': 'CURR', 'LowConcT': 25,
-        'HighConcT': 25, 'LabTemp': 'NA', 'HighSolutionID': 'NA',
-        'LowSolutionID': 'NA',
-        'DataPath': ('C:\\Users\\Harrison\\Box Sync\\penn_state\\' +
-                     'hickner\\experiments\\conductivity\\' +
-                     'max_cell_dc_concentration_gradient\\AmB\\1.14-0.01' +
-                     '\\14-06-19\\')}
-    return RunArgs
-
-
 def make_filenames(SweepList, RunArgs):
     """Make list of chrono filenames for chrono sweep.
 
@@ -50,11 +34,15 @@ def make_filenames(SweepList, RunArgs):
     # Make front and back end of string. A piece will be put in the
     # middle of this to differentiate each individual chrono run.
     FrontStr = (timeStr + SMRep + '_')
-    BackStr = ('_%s_%s_%sp%s_%02d.txt' % (RunArgs['MembraneID'],
+    try:
+        RunNumber = '%02d' % RunArgs['RunNumber']
+    except TypeError:
+        RunNumber = str(RunArgs['RunNumber'])
+    BackStr = ('_%s_%s_%sp%s_%s.txt' % (RunArgs['MembraneID'],
                                           RunArgs['Salt'],
                                           str(RunArgs['HighConcentration']),
                                           str(RunArgs['LowConcentration']),
-                                          RunArgs['RunNumber']))
+                                          RunNumber))
     # Make path for chrono files.
     CRDir = RunArgs['DataPath'] + FrontStr + 'CR' + BackStr[:-4] + '\\'
     SSFilename = (RunArgs['DataPath'] + FrontStr + 'SS' + BackStr)
@@ -103,6 +91,11 @@ def write_data(filename, data, RunArgs, SetPoint='NA', SweepPath=[]):
     else:
         Type = 'Chrono File'
 
+    try:
+        RunNumber = '%02d' % RunArgs['RunNumber']
+    except TypeError:
+        RunNumber = str(RunArgs['RunNumber'])
+
     baseFilename = os.path.basename(filename)  # Filename without path
     header = (
         baseFilename + '\n' +
@@ -112,19 +105,28 @@ def write_data(filename, data, RunArgs, SetPoint='NA', SweepPath=[]):
         'Source Mode\t%s\n' % (SourceMode) +
         'Setpoint (%s)\t%s\n' % (SourceUnit, str(SetPoint)) +
         'Sweep Path\t%s\n' % (str(SweepPath)[1:-1]) +
-        'Run\t%02d\n' % (RunArgs['RunNumber']) +
-        'Membrane\t%s\n' % (RunArgs['Membrane']) +
+        '~\t~\t\nGeneral Info\n' +
+        'User\t%s\n' % (RunArgs['User']) +
+        'Membrane Name\t%s\n' % str(RunArgs['Membrane']) +
         'Membrane ID\t%s\n' % (str(RunArgs['MembraneID'])) +
-        'Salt\t%s\n' % (RunArgs['Salt']) +
-        'High Solution ID\t%s\n' % (RunArgs['HighSolutionID']) +
-        'High Concentration (M)\t%s\n' % (str(RunArgs['HighConcentration'])) +
-        'High Conductivity (mS/cm)\t%s\n' % (str(RunArgs['HighConductivity'])) +
-        'High Solution T (C)\t%s\n' % (str(RunArgs['HighConcT'])) +
-        'Low Solution ID\t%s\n' % (RunArgs['LowSolutionID']) +
-        'Low Concentration (M)\t%s\n' % (str(RunArgs['LowConcentration'])) +
-        'Low Conductivity (mS/cm)\t%s\n' % (str(RunArgs['LowConductivity'])) +
-        'Low Solution T (C)\t%s\n' % (str(RunArgs['LowConcT'])) +
-        'Lab Temperature (F)\t%s\n' % (str(RunArgs['LabTemp'])) +
+        'Salt\t%s\n' % str(RunArgs['Salt']) +
+        'Run Number\t%s\n' % RunNumber +
+        'Cell Design\t%s\n' % str(RunArgs['CellDesign']) +
+        '~\t~\t~\t~\nSolution Info\n' +
+        ' \tConcentration (M)\tConductivity (mS/cm)\tTemperature (C)\n' +
+        'Inlet High\t%s\t%s\t%s\n' % (str(RunArgs['HighConcentration']),
+                                      str(RunArgs['HighConductivityIn']),
+                                      str(RunArgs['HighTempIn'])) +
+        'Outlet High\t%s\t%s\t%s\n' % (str(RunArgs['HighConcentration']),
+                                       str(RunArgs['HighConductivityOut']),
+                                       str(RunArgs['HighTempOut'])) +
+        'Inlet Low\t%s\t%s\t%s\n' % (str(RunArgs['LowConcentration']),
+                                     str(RunArgs['LowConductivityIn']),
+                                     str(RunArgs['LowTempIn'])) +
+        'Outlet Low\t%s\t%s\t%s\n' % (str(RunArgs['LowConcentration']),
+                                      str(RunArgs['LowConductivityOut']),
+                                      str(RunArgs['LowTempOut'])) +
+        '~\t~\t~\t~\nComments\t%s\n~\t~\t~\t~\n' % str(RunArgs['Comments']) +
         'SMU Voltage (V)\tSMU Current(A)\tLocal Time (s)\tGlobal Time (s)')
     # Write file
     ensure_dir(filename)
