@@ -214,9 +214,7 @@ class MainWindow(QMainWindow,
         self._RunArgs = self.ConfigDlg._RunArgs"""
         self.SMU.KWARGS = self._KWARGS
         self.SMU.RunArgs = self._RunArgs
-        self.Data = self.SMU.slow_chrono(self.__Sweep,
-                                         self._KWARGS['ExperimentLength'],
-                                         self._KWARGS['PointDelay'])
+        self.Data = self.SMU.simple_sweep(self.__Sweep)
         self.btnSave.setEnabled(True)
 
     def updateArguments(self):
@@ -259,8 +257,8 @@ class MainWindow(QMainWindow,
 DEFAULT_KWARGS = {'SourceMode': 'CURR',
                   'ComplianceLevel': 200,
                   'NPLC': 1, 'TerminalLocation': 'REAR',
-                  'FourTerminal': 'ON', 'TriggerCount': 1,
-                  'TriggerDelay': 0, 'SourceDelay': 0,
+                  'FourTerminal': 'ON', 'TriggerCount': 100,
+                  'TriggerDelay': 0, 'SourceDelay': 0.01,
                   'ExperimentLength': 2, 'PointDelay': 0.1,
                   'GPIBAddr': 'GPIBX::YY'}
 
