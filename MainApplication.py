@@ -148,8 +148,10 @@ class RunConfigurationDlg(QDialog,
         self._KWARGS['ComplianceLevel'] = self.Compliance.value()
 
 
+
 class MainWindow(QMainWindow,
                  ui_MainWindow.Ui_MainWindow):
+
     """Main window class.
 
     This program runs chronopotentiometry experiments using a Keithley

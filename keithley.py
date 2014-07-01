@@ -40,7 +40,8 @@ class SourceMeter(object):
                       'NPLC': 1, 'TerminalLocation': 'FRON',
                       'FourTerminal': 'OFF', 'TriggerCount': 1,
                       'TriggerDelay': 0, 'SourceDelay': 0,
-                      'ExperimentLength': 2, 'PointDelay': 0.1}
+                      'ExperimentLength': 2, 'PointDelay': 0.1,
+                      'BufferSize': 2500}
 
     def __init__(self, smu_address='GPIB0::25'):
         """Initialize the object.
@@ -172,13 +173,14 @@ class SourceMeter(object):
         # Local or remote sensing (Four temrinal or two terminal)
         self.k2400.write(':SYST:RSEN ' + self.KWARGS['FourTerminal'])
 
-    def reset_buffer(self, BufferSize=2500):
+    def reset_buffer(self):
         """Empty the buffer and set to defined buffer size.
 
         Empties and resets the buffer. The buffer size defaults to the
         maximum size (2500) but can be modified by feeding the
         BufferSize=(2500) value into the function.
         """
+        BufferSize = self.KWARGS['BufferSize']
         self.k2400.write(':TRAC:FEED:CONT NEV')
         self.k2400.write(':TRAC:CLE')
         self.k2400.write(':TRAC:POIN ' + str(BufferSize))
@@ -296,23 +298,10 @@ class SourceMeter(object):
             raise error('NPLC set outside of range. Must be set ' +
                         'between 0.01 and 10.')
 
-    def configure_sweep(self):
-        """Set up source meter to perform a sweep."""
-
-#    def manage_srq(self):
-#        """Check if SRQ and offload data if buffer full."""
-#        STB = self.k2400.ask('STB?')
-#        STB = STB[2:18]
-#        SRQ = STB[9]
-#        OperationComplete = STB[10]
-#        BufferFull = STB[15]
-#        if BufferFull == 1:
-
 
 class SMUExperiments(SourceMeter):
 
     """This class runs SMU experiments."""
-
     DEFAULT_RUNARGS = {
         'Membrane': 'MembraneName', 'MembraneID': '2000',
         'Salt': 'Salt', 'HighConcentration': 0.5,
@@ -403,16 +392,16 @@ class SMUExperiments(SourceMeter):
 
         # Make sure the trigger count is one.
         self.KWARGS['TriggerCount'] = 1
-        SourceMeter.setup_simple_experiment(self)
+        self.setup_simple_experiment()
         globalStartTime = time.time()
         self.RunArgs['SourceMode'] = self.KWARGS['SourceMode']
 
-        def take_points(setPoint):
+        def take_points_(setPoint):
             """Take points in the slow chrono way."""
             DataBin = np.zeros((1000000, 4))  # Preallocate 1,000,000 points.
             count = -1
             StartTime = time.time()
-            SourceMeter.set_output(self, setPoint)
+            self.set_output(setPoint)
             while time.time() - StartTime < self.KWARGS['ExperimentLength']:
                 count += 1
                 # Time block
@@ -420,7 +409,7 @@ class SMUExperiments(SourceMeter):
                 currTime = now - StartTime
                 currGlobalTime = now - globalStartTime
                 # Data block                now = time.time()
-                DataBin[count] = np.append(SourceMeter.take_points(self),
+                DataBin[count] = np.append(self.take_points(),
                                            currGlobalTime)
 
                 DataBin[count, 2] = currTime
@@ -432,8 +421,8 @@ class SMUExperiments(SourceMeter):
 
         data = []
         for i in SweepPath:
-            data.append(take_points(i))
-        SourceMeter.source_on(self, 'OFF')
+            data.append(take_points_(i))
+        self.source_on('OFF')
         if RecordData == "Yes":
             fm.record_data_files(data, SweepPath, self.RunArgs)
         else:
