@@ -169,9 +169,11 @@ class MainWindow(QMainWindow,
         if settings.value('ComplianceLevel'):
             self._KWARGS['ComplianceLevel'] = \
                 settings.value('ComplianceLevel').toDouble()
-        self.__Sweep = [-0.005, -0.004, -0.003, -0.002, -0.001, 0.001, 0.002,
+        """self.__Sweep = [-0.005, -0.004, -0.003, -0.002, -0.001, 0.001, 0.002,
                         0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.01, 0.012,
-                        0.014, 0.016, 0.02, 0.024, 0.026, 0.03]
+                        0.014, 0.016, 0.02, 0.024, 0.026, 0.03]"""
+        self.__Sweep = [-0.005, -0.004, -0.003, -0.002, -0.001, 0.001, 0.002,
+                        0.003, 0.004, 0.005]
         self.ConfigDlg = RunConfigurationDlg(self._KWARGS, self._RunArgs, self)
         self.setupUi(self)
         self.btnSweepConfig.setDisabled(True)
@@ -182,7 +184,6 @@ class MainWindow(QMainWindow,
                      self._openConfigDlg)
         self.connect(self.btnRun, SIGNAL('clicked()'), self._RunExperiment)
         self.connect(self.btnSave, SIGNAL('clicked()'), self._SaveData)
-        self.connect(self.btnRun, SIGNAL('clicked()'), self._RunExperiment)
 
     def _openConfigDlg(self):
         """Open configuration dialog.
@@ -210,8 +211,8 @@ class MainWindow(QMainWindow,
         """
         self.updateArguments()
         self.SMU = SMUExperiments(self._KWARGS['GPIBAddr'])
-        """self._KWARGS = self.ConfigDlg._KWARGS
-        self._RunArgs = self.ConfigDlg._RunArgs"""
+        # self._KWARGS = self.ConfigDlg._KWARGS
+        # self._RunArgs = self.ConfigDlg._RunArgs
         self.SMU.KWARGS = self._KWARGS
         self.SMU.RunArgs = self._RunArgs
         self.Data = self.SMU.simple_sweep(self.__Sweep)
@@ -260,7 +261,7 @@ DEFAULT_KWARGS = {'SourceMode': 'CURR',
                   'FourTerminal': 'ON', 'TriggerCount': 100,
                   'TriggerDelay': 0, 'SourceDelay': 0.01,
                   'ExperimentLength': 2, 'PointDelay': 0.1,
-                  'GPIBAddr': 'GPIBX::YY'}
+                  'GPIBAddr': 'GPIBX::YY', 'BufferSize': 50}
 
 DEFAULT_RunArgs = {'Membrane': '', 'MembraneID': '',
                    'Salt': 'Salt', 'HighConcentration': '',
