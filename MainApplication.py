@@ -260,7 +260,7 @@ DEFAULT_KWARGS = {'SourceMode': 'CURR',
                   'FourTerminal': 'ON', 'TriggerCount': 1,
                   'TriggerDelay': 0, 'SourceDelay': 0,
                   'ExperimentLength': 2, 'PointDelay': 0.1,
-                  'GPIBAddr': 'GPIBX::YY'}
+                  'GPIBAddr': 'GPIBX::YY', 'BufferSize': 2500}
 
 DEFAULT_RunArgs = {'Membrane': '', 'MembraneID': '',
                    'Salt': 'Salt', 'HighConcentration': '',
