@@ -170,8 +170,7 @@ class MainWindow(QMainWindow,
             self._KWARGS['ComplianceLevel'] = \
                 settings.value('ComplianceLevel').toDouble()
         self.__Sweep = [-0.005, -0.004, -0.003, -0.002, -0.001, 0.001, 0.002,
-                        0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.01, 0.012,
-                        0.014, 0.016, 0.02, 0.024, 0.026, 0.03]
+                        0.003, 0.004, 0.005, 0.006, 0.007, 0.008]
         self.ConfigDlg = RunConfigurationDlg(self._KWARGS, self._RunArgs, self)
         self.setupUi(self)
         self.btnSweepConfig.setDisabled(True)
@@ -182,7 +181,6 @@ class MainWindow(QMainWindow,
                      self._openConfigDlg)
         self.connect(self.btnRun, SIGNAL('clicked()'), self._RunExperiment)
         self.connect(self.btnSave, SIGNAL('clicked()'), self._SaveData)
-        self.connect(self.btnRun, SIGNAL('clicked()'), self._RunExperiment)
 
     def _openConfigDlg(self):
         """Open configuration dialog.
