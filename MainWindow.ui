@@ -625,8 +625,10 @@
   <tabstop>txtSalt</tabstop>
   <tabstop>txtRunNumber</tabstop>
   <tabstop>txtCellDesign</tabstop>
+  <tabstop>txtHInletConcentration</tabstop>
   <tabstop>txtHInletConductivity</tabstop>
   <tabstop>txtHInletTemp</tabstop>
+  <tabstop>txtLInletConcentration_2</tabstop>
   <tabstop>txtLInletConductivity_2</tabstop>
   <tabstop>txtLInletTemp_2</tabstop>
   <tabstop>txtHOutletConductivity</tabstop>

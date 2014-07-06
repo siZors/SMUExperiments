@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Harrison\Box Sync\penn_state\hickner\computer\python\keithleyUI\MainWindow.ui'
+# Form implementation generated from reading ui file 'C:\Users\Harrison\Box Sync\penn_state\hickner\computer\python\active\SMUExperiments (hjc137@psu.edu)\MainWindow.ui'
 #
-# Created: Sun Jun 29 15:41:53 2014
+# Created: Sun Jul 06 17:01:00 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -351,9 +351,11 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.txtUser, self.txtSalt)
         MainWindow.setTabOrder(self.txtSalt, self.txtRunNumber)
         MainWindow.setTabOrder(self.txtRunNumber, self.txtCellDesign)
-        MainWindow.setTabOrder(self.txtCellDesign, self.txtHInletConductivity)
+        MainWindow.setTabOrder(self.txtCellDesign, self.txtHInletConcentration)
+        MainWindow.setTabOrder(self.txtHInletConcentration, self.txtHInletConductivity)
         MainWindow.setTabOrder(self.txtHInletConductivity, self.txtHInletTemp)
-        MainWindow.setTabOrder(self.txtHInletTemp, self.txtLInletConductivity_2)
+        MainWindow.setTabOrder(self.txtHInletTemp, self.txtLInletConcentration_2)
+        MainWindow.setTabOrder(self.txtLInletConcentration_2, self.txtLInletConductivity_2)
         MainWindow.setTabOrder(self.txtLInletConductivity_2, self.txtLInletTemp_2)
         MainWindow.setTabOrder(self.txtLInletTemp_2, self.txtHOutletConductivity)
         MainWindow.setTabOrder(self.txtHOutletConductivity, self.txtHOutletTemp)
