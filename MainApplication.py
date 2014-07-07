@@ -6,11 +6,8 @@ This is my first attempt to make a GUI for my Keithley application.
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-try:
-    import visa
-    from keithley import SMUExperiments
-except:
-    pass
+import visa
+from keithley import SMUExperiments
 import filemanipulation as fm
 import ui_MainWindow
 import ui_RunConfiguration
@@ -256,11 +253,18 @@ class MainWindow(QMainWindow,
 
 DEFAULT_KWARGS = {'SourceMode': 'CURR',
                   'ComplianceLevel': 200,
-                  'NPLC': 1, 'TerminalLocation': 'REAR',
-                  'FourTerminal': 'ON', 'TriggerCount': 1,
-                  'TriggerDelay': 0, 'SourceDelay': 0,
-                  'ExperimentLength': 2, 'PointDelay': 0.1,
-                  'GPIBAddr': 'GPIBX::YY', 'BufferSize': 2500}
+                  'NPLC': 1,
+                  'TerminalLocation': 'REAR',
+                  'FourTerminal': 'ON',
+                  'TriggerCount': 1,
+                  'TriggerDelay': 0,
+                  'SourceDelay': 0,
+                  'ExperimentLength': 2,
+                  'PointDelay': 0.1,
+                  'GPIBAddr': 'GPIBX::YY',
+                  'BufferSize': 2500,
+                  'VoltageMeasureRange': 10,
+                  'CurrentMeasureRange': None}
 
 DEFAULT_RunArgs = {'Membrane': '', 'MembraneID': '',
                    'Salt': 'Salt', 'HighConcentration': '',

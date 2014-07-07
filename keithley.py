@@ -41,7 +41,8 @@ class SourceMeter(object):
                       'FourTerminal': 'OFF', 'TriggerCount': 1,
                       'TriggerDelay': 0, 'SourceDelay': 0,
                       'ExperimentLength': 2, 'PointDelay': 0.1,
-                      'BufferSize': 2500}
+                      'BufferSize': 2500, 'VoltageMeasureRange': None,
+					  'CurrentMeasureRange': None}
 
     def __init__(self, smu_address='GPIB0::25'):
         """Initialize the object.
@@ -58,7 +59,7 @@ class SourceMeter(object):
         self.initialize_SRQ()
 
     def setup_connection(self):
-        """ Setup the souzrce meter to take measurements.
+        """ Setup the source meter to take measurements.
 
         This block runs any setup routines that are independent of
         the parameters in KWARGS. Mostly this includes setting the unit
@@ -165,6 +166,18 @@ class SourceMeter(object):
         self.k2400.write(':SOUR:FUNC:MODE '+self.KWARGS['SourceMode'])
         self.k2400.write(':SENS:' + MeasureMode + ':PROT:LEV ' +
                          str(self.KWARGS['ComplianceLevel']))
+		# Set measurement range to manual if defined
+        if self.KWARGS['VoltageMeasureRange']:
+            self.k2400.write(':SENS:VOLT:RANG:AUTO OFF')
+            self.k2400.write(':SENS:VOLT:RANG:UPP ' + 
+                str(self.KWARGS['VoltageMeasureRange']))
+        else:
+            self.k2400.write('SENS:VOLT:RANGE:AUTO ON')
+        if self.KWARGS['CurrentMeasureRange']:
+            self.k2400.write(':SENS:CURR:RANG:AUTO OFF')
+            self.k2400.write(':SENS:CURR:RANGE:UPP ' +
+                str(self.KWARGS['CurrentMeasureRange']))
+        else: self.k2400.write('SENS:CURR:RANG:AUTO ON')
         # Configure NPLC
         self.k2400.write(':SENS:' + MeasureMode + ':NPLC ' +
                          str(self.KWARGS['NPLC']))
