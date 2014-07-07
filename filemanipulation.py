@@ -38,7 +38,7 @@ def make_filenames(SweepList, RunArgs):
         RunNumber = '%02d' % RunArgs['RunNumber']
     except TypeError:
         RunNumber = str(RunArgs['RunNumber'])
-    BackStr = ('_%s_%s_%sp%s_%s.txt' % (RunArgs['MembraneID'],
+    BackStr = ('_%s_%s_%sp%s_%s.csv' % (RunArgs['MembraneID'],
                                           RunArgs['Salt'],
                                           str(RunArgs['HighConcentration']),
                                           str(RunArgs['LowConcentration']),
@@ -99,38 +99,38 @@ def write_data(filename, data, RunArgs, SetPoint='NA', SweepPath=[]):
     baseFilename = os.path.basename(filename)  # Filename without path
     header = (
         baseFilename + '\n' +
-        'Date' + '\t' + time.strftime('%m/%d/%Y', time.localtime()) + '\n' +
-        'Time\t%s:%s\n' % (baseFilename[6:8], baseFilename[8:10]) +
-        'Data Type\t%s\n' % (Type) +
-        'Source Mode\t%s\n' % (SourceMode) +
-        'Setpoint (%s)\t%s\n' % (SourceUnit, str(SetPoint)) +
-        'Sweep Path\t%s\n' % (str(SweepPath)[1:-1]) +
-        '~\t~\t\nGeneral Info\n' +
-        'User\t%s\n' % (RunArgs['User']) +
-        'Membrane Name\t%s\n' % str(RunArgs['Membrane']) +
-        'Membrane ID\t%s\n' % (str(RunArgs['MembraneID'])) +
-        'Salt\t%s\n' % str(RunArgs['Salt']) +
-        'Run Number\t%s\n' % RunNumber +
-        'Cell Design\t%s\n' % str(RunArgs['CellDesign']) +
-        '~\t~\t~\t~\nSolution Info\n' +
-        ' \tConcentration (M)\tConductivity (mS/cm)\tTemperature (C)\n' +
-        'Inlet High\t%s\t%s\t%s\n' % (str(RunArgs['HighConcentration']),
+        'Date,' + time.strftime('%m/%d/%Y', time.localtime()) + '\n' +
+        'Time,%s:%s\n' % (baseFilename[6:8], baseFilename[8:10]) +
+        'Data Type,%s\n' % (Type) +
+        'Source Mode,%s\n' % (SourceMode) +
+        'Setpoint (%s),%s\n' % (SourceUnit, str(SetPoint)) +
+        'Sweep Path,%s\n' % (str(SweepPath)[1:-1]) +
+        '~,~,\nGeneral Info\n' +
+        'User,%s\n' % (RunArgs['User']) +
+        'Membrane Name,%s\n' % str(RunArgs['Membrane']) +
+        'Membrane ID,%s\n' % (str(RunArgs['MembraneID'])) +
+        'Salt,%s\n' % str(RunArgs['Salt']) +
+        'Run Number,%s\n' % RunNumber +
+        'Cell Design,%s\n' % str(RunArgs['CellDesign']) +
+        '~,~,~,~\nSolution Info\n' +
+        ' ,Concentration (M),Conductivity (mS/cm),Temperature (C)\n' +
+        'Inlet High,%s,%s,%s\n' % (str(RunArgs['HighConcentration']),
                                       str(RunArgs['HighConductivityIn']),
                                       str(RunArgs['HighTempIn'])) +
-        'Outlet High\t%s\t%s\t%s\n' % (str(RunArgs['HighConcentration']),
+        'Outlet High,%s,%s,%s\n' % (str(RunArgs['HighConcentration']),
                                        str(RunArgs['HighConductivityOut']),
                                        str(RunArgs['HighTempOut'])) +
-        'Inlet Low\t%s\t%s\t%s\n' % (str(RunArgs['LowConcentration']),
+        'Inlet Low,%s,%s,%s\n' % (str(RunArgs['LowConcentration']),
                                      str(RunArgs['LowConductivityIn']),
                                      str(RunArgs['LowTempIn'])) +
-        'Outlet Low\t%s\t%s\t%s\n' % (str(RunArgs['LowConcentration']),
+        'Outlet Low,%s,%s,%s\n' % (str(RunArgs['LowConcentration']),
                                       str(RunArgs['LowConductivityOut']),
                                       str(RunArgs['LowTempOut'])) +
-        '~\t~\t~\t~\nComments\t%s\n~\t~\t~\t~\n' % str(RunArgs['Comments']) +
-        'SMU Voltage (V)\tSMU Current(A)\tLocal Time (s)\tGlobal Time (s)')
+        '~,~,~,~\nComments,%s\n~,~,~,~\n' % str(RunArgs['Comments']) +
+        'SMU Voltage (V),SMU Current(A),Local Time (s),Global Time (s)')
     # Write file
     ensure_dir(filename)
-    np.savetxt(filename, data, delimiter='\t', header=header, comments='')
+    np.savetxt(filename, data, delimiter=',', header=header, comments='')
 
 
 def generate_ss_array(data, nPoints=1):
