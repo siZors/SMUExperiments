@@ -13,6 +13,7 @@ import ui_MainWindow
 import ui_RunConfiguration
 
 __version__ = "0.1.1"
+#  NA
 
 
 class RunConfigurationDlg(QDialog,
