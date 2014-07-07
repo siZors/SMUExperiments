@@ -12,7 +12,7 @@ import filemanipulation as fm
 import ui_MainWindow
 import ui_RunConfiguration
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
 class RunConfigurationDlg(QDialog,
