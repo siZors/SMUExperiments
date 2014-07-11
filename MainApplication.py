@@ -166,8 +166,10 @@ class MainWindow(QMainWindow,
         if settings.value('ComplianceLevel'):
             self._KWARGS['ComplianceLevel'] = \
                 settings.value('ComplianceLevel').toDouble()
-        self.__Sweep = [-0.005, -0.004, -0.003, -0.002, -0.001, 0.001, 0.002,
-                        0.003, 0.004, 0.005, 0.006, 0.007, 0.008]
+        self.__Sweep = [-0.005, -0.004, -0.003, -0.002,
+                        -0.001, 0.0, 0.001, 0.002,
+                        0.003,0.004, 0.005, 0.006, 0.007, 0.008
+                        ]
         self.ConfigDlg = RunConfigurationDlg(self._KWARGS, self._RunArgs, self)
         self.setupUi(self)
         self.btnSweepConfig.setDisabled(True)
@@ -263,7 +265,7 @@ DEFAULT_KWARGS = {'SourceMode': 'CURR',
                   'PointDelay': 0.1,
                   'GPIBAddr': 'GPIBX::YY',
                   'BufferSize': 2500,
-                  'VoltageMeasureRange': 10,
+                  'VoltageMeasureRange': None,
                   'CurrentMeasureRange': None}
 
 DEFAULT_RunArgs = {'Membrane': '', 'MembraneID': '',
