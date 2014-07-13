@@ -39,10 +39,10 @@ def make_filenames(SweepList, RunArgs):
     except TypeError:
         RunNumber = str(RunArgs['RunNumber'])
     BackStr = ('_%s_%s_%sp%s_%s.csv' % (RunArgs['MembraneID'],
-                                          RunArgs['Salt'],
-                                          str(RunArgs['HighConcentration']),
-                                          str(RunArgs['LowConcentration']),
-                                          RunNumber))
+                                        RunArgs['Salt'],
+                                        str(RunArgs['HighConcentration']),
+                                        str(RunArgs['LowConcentration']),
+                                        RunNumber))
     # Make path for chrono files.
     CRDir = RunArgs['DataPath'] + FrontStr + 'CR' + BackStr[:-4] + '\\'
     SSFilename = (RunArgs['DataPath'] + FrontStr + 'SS' + BackStr)
@@ -115,17 +115,17 @@ def write_data(filename, data, RunArgs, SetPoint='NA', SweepPath=[]):
         '~,~,~,~\nSolution Info\n' +
         ' ,Concentration (M),Conductivity (mS/cm),Temperature (C)\n' +
         'Inlet High,%s,%s,%s\n' % (str(RunArgs['HighConcentration']),
-                                      str(RunArgs['HighConductivityIn']),
-                                      str(RunArgs['HighTempIn'])) +
+                                   str(RunArgs['HighConductivityIn']),
+                                   str(RunArgs['HighTempIn'])) +
         'Outlet High,%s,%s,%s\n' % (str(RunArgs['HighConcentration']),
-                                       str(RunArgs['HighConductivityOut']),
-                                       str(RunArgs['HighTempOut'])) +
+                                    str(RunArgs['HighConductivityOut']),
+                                    str(RunArgs['HighTempOut'])) +
         'Inlet Low,%s,%s,%s\n' % (str(RunArgs['LowConcentration']),
-                                     str(RunArgs['LowConductivityIn']),
-                                     str(RunArgs['LowTempIn'])) +
+                                  str(RunArgs['LowConductivityIn']),
+                                  str(RunArgs['LowTempIn'])) +
         'Outlet Low,%s,%s,%s\n' % (str(RunArgs['LowConcentration']),
-                                      str(RunArgs['LowConductivityOut']),
-                                      str(RunArgs['LowTempOut'])) +
+                                   str(RunArgs['LowConductivityOut']),
+                                   str(RunArgs['LowTempOut'])) +
         '~,~,~,~\nComments,%s\n~,~,~,~\n' % str(RunArgs['Comments']) +
         'SMU Voltage (V),SMU Current(A),Local Time (s),Global Time (s)')
     # Write file
